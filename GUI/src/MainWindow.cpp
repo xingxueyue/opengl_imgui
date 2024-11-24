@@ -53,6 +53,18 @@ void MainWindow::InitIMGUI()
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	(void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; //键盘信号
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; //手柄信号
+
+	//设置初始ImGui的初始风格
+	ImGui::StyleColorsDark();
+
+	//设置OpenGL为渲染器
+	ImGui_ImplGlfw_InitForOpenGL(glfwWindow,true);
+	ImGui_ImplOpenGL3_Init("#version 420"); //OpenGL对应的GLSL版本
+
 }
 
 void MainWindow::renderLoop()
