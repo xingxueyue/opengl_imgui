@@ -16,6 +16,7 @@ private:
 	void InitIMGUI();
 	void renderLoop();
 	void deleteWindow();
+	void glfwErrorCallback(int error_code, const char* description);
 
 public:
 

@@ -23,6 +23,9 @@ MainWindow::~MainWindow(){}
 
 void MainWindow::InitGLFWwindow()
 {
+	//设置glfw的错误回调函数
+	glfwSetErrorCallback(glfwErrorCallback);
+
 	if (!glfwInit())
 		std::exit(1);
 
@@ -68,7 +71,29 @@ void MainWindow::InitIMGUI()
 }
 
 void MainWindow::renderLoop()
-{}
+{
+	//窗口背景初始颜色
+	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+	//渲染循环
+	while (!glfwWindowShouldClose(glfwWindow))
+	{
+		glfwPollEvents();
+
+		//如果窗口最小化则休眠10ms,不进行后续渲染，减少资源消耗
+		if (glfwGetWindowAttrib(glfwWindow, GLFW_ICONIFIED) != 0)
+		{
+			ImGui_ImplGlfw_Sleep(10);
+			continue;
+		}
+	}
+}
 
 void MainWindow::deleteWindow()
 {}
+
+void MainWindow::glfwErrorCallback(int error_code, const char* description)
+{
+	std::cout << "error_code: " << error_code << endl;
+	std::cout << "error_description" << description << endl;
+}
