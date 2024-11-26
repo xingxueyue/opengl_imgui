@@ -72,8 +72,12 @@ void MainWindow::InitIMGUI()
 
 void MainWindow::renderLoop()
 {
-	//窗口背景初始颜色
+	//窗口背景颜色
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+	//目前测试用的变量
+	bool show_Imgui_officialDemo = true;
+	float sliderValue;
 
 	//渲染循环
 	while (!glfwWindowShouldClose(glfwWindow))
@@ -86,6 +90,26 @@ void MainWindow::renderLoop()
 			ImGui_ImplGlfw_Sleep(10);
 			continue;
 		}
+
+		//为ImGui和OpenGL准备新一帧,即清除之前的状态
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
+		//显示官方的demo窗口
+		if (show_Imgui_officialDemo)
+			ImGui::ShowDemoWindow(&show_Imgui_officialDemo);
+
+		//ImGUI窗口
+		ImGui::Begin("MainImGuiWindow");
+
+		ImGui::Text("这是ImGui的窗口");
+		ImGui::Checkbox("官方的Demo窗口",&show_Imgui_officialDemo);
+
+		ImGui::SliderFloat("滑块", sliderValue, 0.0f, 1.0f);
+		ImGui::ColorEdit3("设置背景颜色", (float*)clear_color);
+
+
 	}
 }
 
