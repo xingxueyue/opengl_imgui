@@ -1,8 +1,6 @@
 ﻿#include "MainWindow.h"
 
 using namespace std;
-
-#include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <lua.h>
@@ -56,7 +54,7 @@ void MainWindow::InitIMGUI()
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
+	io = ImGui::GetIO();
 	(void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; //键盘信号
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; //手柄信号
@@ -106,10 +104,25 @@ void MainWindow::renderLoop()
 		ImGui::Text("这是ImGui的窗口");
 		ImGui::Checkbox("官方的Demo窗口",&show_Imgui_officialDemo);
 
-		ImGui::SliderFloat("滑块", sliderValue, 0.0f, 1.0f);
-		ImGui::ColorEdit3("设置背景颜色", (float*)clear_color);
+		ImGui::SliderFloat("滑块", &sliderValue, 0.0f, 1.0f);
+		ImGui::SameLine(0.0f,5.0f);//两个控件
+		ImGui::ColorEdit3("设置背景颜色", (float*)&clear_color);
 
+		//显示IMGUI窗口帧率
+		ImGui::Text("当前窗口帧率: %.1f FPS", io.Framerate);
 
+		ImGui::End();
+
+		//渲染
+		ImGui::Render();
+		int display_w, display_h;
+		glfwGetFramebufferSize(glfwWindow, &display_w, &display_h);
+		glViewport(0, 0, display_w, display_h);//设置视图属性
+		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+		glClear(GL_COLOR_BUFFER_BIT);//刷新颜色缓冲
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		glfwSwapBuffers(glfwWindow);//交换缓冲区
 	}
 }
 
