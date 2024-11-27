@@ -1,6 +1,5 @@
 ﻿#include "MainWindow.h"
 
-using namespace std;
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <lua.h>
@@ -17,11 +16,11 @@ MainWindow::MainWindow()
 	deleteWindow();
 }
 
-MainWindow::~MainWindow(){}
+MainWindow::~MainWindow() {}
 
 void MainWindow::InitGLFWwindow()
 {
-	//设置glfw的错误回调函数
+	//设置glfw的错误函数回调
 	glfwSetErrorCallback(glfwErrorCallback);
 
 	if (!glfwInit())
@@ -54,7 +53,7 @@ void MainWindow::InitIMGUI()
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	io = ImGui::GetIO();
+	ImGuiIO& io = ImGui::GetIO();
 	(void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; //键盘信号
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; //手柄信号
@@ -63,13 +62,14 @@ void MainWindow::InitIMGUI()
 	ImGui::StyleColorsDark();
 
 	//设置OpenGL为渲染器
-	ImGui_ImplGlfw_InitForOpenGL(glfwWindow,true);
+	ImGui_ImplGlfw_InitForOpenGL(glfwWindow, true);
 	ImGui_ImplOpenGL3_Init("#version 420"); //OpenGL对应的GLSL版本
 
 }
 
 void MainWindow::renderLoop()
 {
+	ImGuiIO& io = ImGui::GetIO();
 	//窗口背景颜色
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
@@ -101,15 +101,15 @@ void MainWindow::renderLoop()
 		//ImGUI窗口
 		ImGui::Begin("MainImGuiWindow");
 
-		ImGui::Text("这是ImGui的窗口");
-		ImGui::Checkbox("官方的Demo窗口",&show_Imgui_officialDemo);
+		ImGui::Text("This is ImGui Window");
+		ImGui::Checkbox("Offical Demo Window", &show_Imgui_officialDemo);
 
-		ImGui::SliderFloat("滑块", &sliderValue, 0.0f, 1.0f);
-		ImGui::SameLine(0.0f,5.0f);//两个控件
-		ImGui::ColorEdit3("设置背景颜色", (float*)&clear_color);
+		ImGui::SliderFloat("slider", &sliderValue, 0.0f, 1.0f);
+		//ImGui::SameLine(0.0f,5.0f);//两个控件
+		ImGui::ColorEdit3("background color", (float*)&clear_color);
 
 		//显示IMGUI窗口帧率
-		ImGui::Text("当前窗口帧率: %.1f FPS", io.Framerate);
+		ImGui::Text("Now frame is : %.1f FPS", io.Framerate);
 
 		ImGui::End();
 
@@ -127,10 +127,17 @@ void MainWindow::renderLoop()
 }
 
 void MainWindow::deleteWindow()
-{}
+{
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+
+	glfwDestroyWindow(glfwWindow);
+	glfwTerminate();
+}
 
 void MainWindow::glfwErrorCallback(int error_code, const char* description)
 {
-	std::cout << "error_code: " << error_code << endl;
-	std::cout << "error_description" << description << endl;
+	std::cout << "error_code: " << error_code << std::endl;
+	std::cout << "error_description" << description << std::endl;
 }

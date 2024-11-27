@@ -1,4 +1,4 @@
-﻿#ifndef MAINWINDOW
+#ifndef MAINWINDOW
 #define MAINWINDOW
 
 #include <iostream>
@@ -24,7 +24,6 @@ public:
 	MainWindow* mainWindow;
 private:
 	GLFWwindow* glfwWindow;
-	ImGuiIO& io;
 };
 
 

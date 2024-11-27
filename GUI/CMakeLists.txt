@@ -1,4 +1,4 @@
-﻿cmake_minimum_required (VERSION 3.8)
+cmake_minimum_required (VERSION 3.8)
 
 project(GUI) 
 
@@ -23,8 +23,7 @@ set(GUIEXTRA_SOURCES_IMGUI
     ${CMAKE_SOURCE_DIR}/lib/imgui/imgui_impl_win32.cpp 
     ${CMAKE_SOURCE_DIR}/lib/imgui/imgui_tables.cpp 
     ${CMAKE_SOURCE_DIR}/lib/imgui/imgui_widgets.cpp 
-
-    ${CMAKE_SOURCE_DIR}/lib/glad/src/glad.c 
+    ${CMAKE_SOURCE_DIR}/lib/imgui/imgui_demo.cpp
 )
 
 set(GUIEXTRA_SOURCES_GLAD ${CMAKE_SOURCE_DIR}/lib/glad/src/glad.c)
