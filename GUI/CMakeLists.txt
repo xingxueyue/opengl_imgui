@@ -31,6 +31,7 @@ set(GUIEXTRA_SOURCES_GLAD ${CMAKE_SOURCE_DIR}/lib/glad/src/glad.c)
 #子项目本身的源文件
 set(GUI_SOURCES
     src/MainWindow.cpp
+    src/MainMenuBar.cpp
 )
 
 #静态库变量：GLFW、Lua

@@ -10,6 +10,10 @@ MainWindow::MainWindow()
 	InitGLFWwindow();
 	//初始化IMGUI
 	InitIMGUI();
+
+	//其它页面初始化
+
+
 	//渲染循环
 	renderLoop();
 	//释放资源
@@ -70,6 +74,7 @@ void MainWindow::InitIMGUI()
 void MainWindow::renderLoop()
 {
 	ImGuiIO& io = ImGui::GetIO();
+
 	//窗口背景颜色
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
@@ -100,6 +105,8 @@ void MainWindow::renderLoop()
 
 		//ImGUI窗口
 		ImGui::Begin("MainImGuiWindow");
+
+		show
 
 		ImGui::Text("This is ImGui Window");
 		ImGui::Checkbox("Offical Demo Window", &show_Imgui_officialDemo);

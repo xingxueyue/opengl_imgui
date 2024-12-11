@@ -6,6 +6,8 @@
 #include <glfw/glfw3.h>
 #include <imgui.h>
 
+#include "MainMenuBar.h"
+
 class MainWindow
 {
 public:
@@ -24,6 +26,7 @@ public:
 	MainWindow* mainWindow;
 private:
 	GLFWwindow* glfwWindow;
+	MainMenuBar* mainMenuBar;
 };
 
 
