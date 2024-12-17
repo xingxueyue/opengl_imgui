@@ -6,16 +6,25 @@ MainMenuBar::MainMenuBar()
 MainMenuBar::~MainMenuBar()
 {}
 
-void MainMenuBar::showMainMenuBar()
+void MainMenuBar::showMenuBar()
 {
-	if (ImGui::BeginMainMenuBar())
+	//注意BeginMenuBar和BeginMainMenuBar
+	if (ImGui::BeginMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
 		{
-
-			ImGui::EndMenu;
+			showFileMenu();
+			ImGui::EndMenu();
 		}
 
-		ImGui::EndMainMenuBar();
+		ImGui::EndMenuBar();
 	}
+}
+
+
+void MainMenuBar::showFileMenu()
+{
+	ImGui::MenuItem(("fileMenu"), NULL, false, false);
+	if (ImGui::MenuItem("New")) {}
+	if (ImGui::MenuItem("Open", "Ctrl+O")) {}
 }

@@ -18,12 +18,14 @@ public:
 private:
 	void InitGLFWwindow();
 	void InitIMGUI();
+	void InitUI();
+
 	void renderLoop();
 	void deleteWindow();
 
 public:
-
 	MainWindow* mainWindow;
+
 private:
 	GLFWwindow* glfwWindow;
 	MainMenuBar* mainMenuBar;

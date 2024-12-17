@@ -7,7 +7,10 @@ public:
 	MainMenuBar();
 	~MainMenuBar();
 
-	void showMainMenuBar();
+	void showMenuBar();
+
+private:
+	void showFileMenu();
 };
 
 

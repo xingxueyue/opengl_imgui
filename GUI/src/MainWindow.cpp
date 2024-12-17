@@ -11,8 +11,8 @@ MainWindow::MainWindow()
 	//初始化IMGUI
 	InitIMGUI();
 
-	//其它页面初始化
-
+	//UI页面初始化
+	InitUI();
 
 	//渲染循环
 	renderLoop();
@@ -82,6 +82,8 @@ void MainWindow::renderLoop()
 	bool show_Imgui_officialDemo = true;
 	float sliderValue;
 
+	bool showMainImGuiWindowMenu = true;
+
 	//渲染循环
 	while (!glfwWindowShouldClose(glfwWindow))
 	{
@@ -104,9 +106,10 @@ void MainWindow::renderLoop()
 			ImGui::ShowDemoWindow(&show_Imgui_officialDemo);
 
 		//ImGUI窗口
-		ImGui::Begin("MainImGuiWindow");
+		ImGui::Begin("MainImGuiWindow", &showMainImGuiWindowMenu, ImGuiWindowFlags_::ImGuiWindowFlags_MenuBar);
 
-		show
+		//菜单栏
+		mainMenuBar->showMenuBar();
 
 		ImGui::Text("This is ImGui Window");
 		ImGui::Checkbox("Offical Demo Window", &show_Imgui_officialDemo);
@@ -135,6 +138,8 @@ void MainWindow::renderLoop()
 
 void MainWindow::deleteWindow()
 {
+	delete mainMenuBar;
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
@@ -147,4 +152,9 @@ void MainWindow::glfwErrorCallback(int error_code, const char* description)
 {
 	std::cout << "error_code: " << error_code << std::endl;
 	std::cout << "error_description" << description << std::endl;
+}
+
+void MainWindow::InitUI()
+{
+	mainMenuBar = new MainMenuBar();
 }
